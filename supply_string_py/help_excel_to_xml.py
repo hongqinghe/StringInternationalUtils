@@ -153,6 +153,7 @@ def excleConversionXml():
     excelToXml(table,1,xmlPath)
     # 生成 en_xml 文件
     excelToXml(table,2,en_xml_path)
-# 入口
-excleConversionXml()
+
+if __name__ == "__main__":
+    excleConversionXml()
         

@@ -1,4 +1,7 @@
 #  xml  文件转化为 excel 文件
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import re
 import os
 
@@ -9,34 +12,36 @@ from openpyxl.workbook import Workbook
 from openpyxl.styles import  PatternFill
 from openpyxl.styles import Color, Fill
 from openpyxl.cell import Cell
+import string_xml_constants as SC
+# # 每个sheet表头 
+# _excel_title_value_key='Key'
+# _excel_title_value_value='Value'
+# _excel_title_value_en='En'
+# _excel_title_value_thai='Thai'
 
 
-TYPE_SUPPLY_BASE_BTNS = 1
-TYPE_SUPPLY_BASE_PAGES = 2
-TYPE_SUPPLY_BASE_MSGS = 3
+# # sheet name
+# _supply_base_sheet_head_btn='supply_base_btns'
+# _supply_base_sheet_head_page='supply_base_pages'
+# _supply_base_sheet_head_msg='supply_base_msgs'
 
-TYPE_BASE_BTNS = 4
-TYPE_BASE_PAGES = 5
-TYPE_BASE_MSGS = 6
+# _base_sheet_head_btn='base_btns'
+# _base_sheet_head_page='base_pages'
+# _base_sheet_head_msg='base_msgs'
 
-TYPE_BUY_BTNS = 7
-TYPE_BUY_PAGES = 8
-TYPE_BUY_MSGS = 9
+# _buy_sheet_head_btn='buy_btns'
+# _buy_sheet_head_page='buy_pages'
+# _buy_sheet_head_msg='buy_msgs'
 
-# def supplyBaseBtn(wb):
-#     ws = wb.worksheets[0]
-#     ws.title = 'supply_base_btns'
-#     ws.append({1: 'Key', 2: 'Value', 3: 'En', 4: 'Thai'})
-#     return ws
 
-# 
+
 def getSheetWs(wb,sheet_title):
-    if SUPPLY_BASE_SHEET_TITLE_BTN==sheet_title:
+    if SC._supply_base_sheet_head_btn==sheet_title:
         ws = wb.worksheets[0]
         ws.title = sheet_title
     else:
         ws = wb.create_sheet(sheet_title)
-    ws.append({1: 'Key', 2: 'Value', 3: 'En', 4: 'Thai'})
+    ws.append({1: SC._excel_title_value_key, 2:SC._excel_title_value_value, 3: SC._excel_title_value_en, 4: SC._excel_title_value_thai})
     return ws
 # def supplyBaseMsg(wb):
 #     ws = wb.create_sheet('supply_base_msgs')
@@ -72,60 +77,46 @@ def xmlParse(zhPath, enPath,ws):
         ws.append([zh_key, zh_value, en_value])
 
 #  Base_btns_file 
-supplybase_zh_btns_path = '/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values/btns.xml'
-supplybase_en_btns_path = '/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values-en/btns.xml'
+# supplybase_zh_btns_path = '/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values/btns.xml'
+# supplybase_en_btns_path = '/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values-en/btns.xml'
 
-#  Base_btns_file 
-supplybase_zh_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values/pages.xml'
-supplybase_en_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values-en/pages.xml'
+# #  Base_btns_file 
+# supplybase_zh_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values/pages.xml'
+# supplybase_en_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values-en/pages.xml'
 
-#  Base_btns_file 
-supplybase_zh_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values/msgs.xml'
-supplybase_en_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values-en/msgs.xml'
-
-
-#  Base_btns_file 
-base_zh_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values/btns.xml'
-base_en_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values-en/btns.xml'
-
-#  Base_pages_file compare 
-base_zh_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values/pages.xml'
-base_en_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values-en/pages.xml'
+# #  Base_btns_file 
+# supplybase_zh_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values/msgs.xml'
+# supplybase_en_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/SupplyBaseString/src/main/res/values-en/msgs.xml'
 
 
-#  Base_msgs_file compare 
-base_zh_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values/msgs.xml'
-base_en_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values-en/msgs.xml'
+# #  Base_btns_file 
+# base_zh_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values/btns.xml'
+# base_en_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values-en/btns.xml'
+
+# #  Base_pages_file compare 
+# base_zh_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values/pages.xml'
+# base_en_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values-en/pages.xml'
 
 
+# #  Base_msgs_file compare 
+# base_zh_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values/msgs.xml'
+# base_en_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/BaseString/src/main/res/values-en/msgs.xml'
 
 
-#  buy_btns_file compare 
-buy_zh_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values/btns.xml'
-buy_en_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values-en/btns.xml'
+# #  buy_btns_file compare 
+# buy_zh_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values/btns.xml'
+# buy_en_btns_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values-en/btns.xml'
 
-#  buy_pages_file compare 
-buy_zh_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values/pages.xml'
-buy_en_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values-en/pages.xml'
+# #  buy_pages_file compare 
+# buy_zh_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values/pages.xml'
+# buy_en_pages_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values-en/pages.xml'
 
 
-#  buy_msgs_file compare 
-buy_zh_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values/msgs.xml'
-buy_en_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values-en/msgs.xml'
+# #  buy_msgs_file compare 
+# buy_zh_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values/msgs.xml'
+# buy_en_msgs_path='/Users/hehongqing/WorkSpace/Android/GYLStringModule/PurchaseBuyString/src/main/res/values-en/msgs.xml'
 
-su_string_file_path=r'/Users/hehongqing/Downloads/supply_string.xlsx'
-
-SUPPLY_BASE_SHEET_TITLE_BTN='supply_base_btns'
-SUPPLY_BASE_SHEET_TITLE_PAGE='supply_base_pages'
-SUPPLY_BASE_SHEET_TITLE_MSG='supply_base_msgs'
-
-BASE_SHEET_TITLE_BTN='base_btns'
-BASE_SHEET_TITLE_PAGE='base_pages'
-BASE_SHEET_TITLE_MSG='base_msgs'
-
-BUY_SHEET_TITLE_BTN='buy_btns'
-BUY_SHEET_TITLE_PAGE='buy_pages'
-BUY_SHEET_TITLE_MSG='buy_msgs'
+su_string_file_path=r'/Users/hehongqing/Downloads/supply_string_2.xlsx'
 
 def transformToExcel():
 
@@ -133,22 +124,21 @@ def transformToExcel():
     wb, fileName = initExcel(su_string_file_path)
 
     # supplyBase
-    xmlParse(supplybase_zh_btns_path,supplybase_en_btns_path,getSheetWs(wb,SUPPLY_BASE_SHEET_TITLE_BTN))
-    xmlParse(supplybase_zh_pages_path,supplybase_en_pages_path,getSheetWs(wb,SUPPLY_BASE_SHEET_TITLE_PAGE))
-    xmlParse(supplybase_zh_msgs_path,supplybase_en_msgs_path,getSheetWs(wb,SUPPLY_BASE_SHEET_TITLE_MSG))
+    xmlParse(SC._supplybase_zh_btns_path,SC._supplybase_en_btns_path,getSheetWs(wb,SC._supply_base_sheet_head_btn))
+    xmlParse(SC._supplybase_zh_pages_path,SC._supplybase_en_pages_path,getSheetWs(wb,SC._supply_base_sheet_head_page))
+    xmlParse(SC._supplybase_zh_msgs_path,SC._supplybase_en_msgs_path,getSheetWs(wb,SC._supply_base_sheet_head_msg))
 
     # base
-    xmlParse(base_zh_btns_path,base_en_btns_path,getSheetWs(wb,BASE_SHEET_TITLE_BTN))
-    xmlParse(base_zh_pages_path,base_en_pages_path,getSheetWs(wb,BASE_SHEET_TITLE_PAGE))
-    xmlParse(base_zh_msgs_path,base_en_msgs_path,getSheetWs(wb,BASE_SHEET_TITLE_MSG))
+    xmlParse(SC._base_zh_btns_path,SC._base_en_btns_path,getSheetWs(wb,SC._base_sheet_head_btn))
+    xmlParse(SC._base_zh_pages_path,SC._base_en_pages_path,getSheetWs(wb,SC._base_sheet_head_page))
+    xmlParse(SC._base_zh_msgs_path,SC._base_en_msgs_path,getSheetWs(wb,SC._base_sheet_head_msg))
 
     # Buy
-    xmlParse(buy_zh_btns_path,buy_en_btns_path,getSheetWs(wb,BUY_SHEET_TITLE_BTN))
-    xmlParse(buy_zh_pages_path,buy_en_pages_path,getSheetWs(wb,BUY_SHEET_TITLE_PAGE))
-    xmlParse(buy_zh_msgs_path,buy_en_msgs_path,getSheetWs(wb,BUY_SHEET_TITLE_MSG))
+    xmlParse(SC._buy_zh_btns_path,SC._buy_en_btns_path,getSheetWs(wb,SC._buy_sheet_head_btn))
+    xmlParse(SC._buy_zh_pages_path,SC._buy_en_pages_path,getSheetWs(wb,SC._buy_sheet_head_page))
+    xmlParse(SC._buy_zh_msgs_path,SC._buy_en_msgs_path,getSheetWs(wb,SC._buy_sheet_head_msg))
 
     # 在每个 ws 对象添加节点后对文件做保存操作，不然不会生效
     wb.save(fileName)
-# 入口函数
-transformToExcel()
-
+if __name__ == "__main__":
+    transformToExcel()
