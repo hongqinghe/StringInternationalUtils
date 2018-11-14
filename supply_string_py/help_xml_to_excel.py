@@ -5,9 +5,16 @@ import re
 import os
 from openpyxl.workbook import Workbook
 # 颜色
-from openpyxl.styles import PatternFill
-from openpyxl.styles import Color, Fill
+# 颜色
+from openpyxl.styles import  PatternFill
+from openpyxl.styles import Color, Fill,Font,colors,Border,Side,Alignment
 from openpyxl.cell import Cell
+
+import xlrd
+from openpyxl.workbook import Workbook
+import string_xml_to_excel as SE
+import string_xml_constants as SC
+from time import time
 
 _help_key = None
 
@@ -44,6 +51,13 @@ FILE_TYPE_EN = 'en'
 
 # worksheets
 ws=None
+# 是否开启容错处理
+isOpenFaultTolerantProcess=True
+help_zh_path = '/Users/hehongqing/WorkSpace/Android/static_help/resources/xml/SupplyHelpFiles.xml'
+help_en_path = '/Users/hehongqing/WorkSpace/Android/static_help/resources/xml/SupplyHelpENFiles.xml'
+test_path = r'/Users/hehongqing/Downloads/test_help.xml'
+su_string_file_path = r'/Users/hehongqing/Downloads/help_string_2.xlsx'
+sheet_title = 'help'
 
 def readFile(filePath, type):
     file = open(filePath)
@@ -96,8 +110,24 @@ def dealLine(line, type):
                 ws.append({i: excel_key_title, 2: nodeTitleValue})
             elif type == FILE_TYPE_EN:
                 j +=1
+                # 进行判断
+                cell=ws['A'+str(j)]
+                # 如果这里的key无法进行匹配 直接标红 需要检查xml文件
+                if not cell._value ==excel_key_title and isOpenFaultTolerantProcess:
+                    cell=ws['E'+str(j)]
+                    enEmptyColor='dc143c'
+                    cell.fill=PatternFill(fill_type='lightGray',bgColor=enEmptyColor,fgColor=enEmptyColor)
+                    ws['E'+str(j)]=excel_key_title
+
                 ws['A'+str(j)]=excel_key_title
-                ws['C'+str(j)]=nodeTitleValue
+                cell=ws['B'+str(j)]
+                # 英文和中文一致，则认为没有进行翻译，输出值为空，并且做出标记
+                if cell._value==nodeTitleValue:
+                    ws['C'+str(j)]=''
+                    enEmptyColor='dda0dd'
+                    ws['C'+str(j)].fill==PatternFill(fill_type='lightGray',bgColor=enEmptyColor,fgColor=enEmptyColor)
+                else:
+                    ws['C'+str(j)]=nodeTitleValue
             return
             # excel 输出结构
             #  key                              value                               en
@@ -265,24 +295,59 @@ def getSheetWs(wb,sheetTitle):
     ws = wb.worksheets[0]
     ws.title = sheetTitle
     ws.append({1: 'Key', 2: 'Value', 3: 'En', 4: 'Thai'})
+
+
+    currentRow=ws._current_row
+    cellHorizontal='center'
+
+    cell=ws['A'+str(currentRow)]
+    aCellColor='d3d3d3'
+    cell.alignment=Alignment(horizontal=cellHorizontal,vertical=cellHorizontal)
+    cell.fill=PatternFill(fill_type='lightHorizontal',bgColor=aCellColor,fgColor=aCellColor)
+
+    cell=ws['B'+str(currentRow)] 
+    bCellColor='fff0f5'
+    cell.alignment=Alignment(horizontal=cellHorizontal)
+    cell.fill=PatternFill(fill_type='lightHorizontal',bgColor=bCellColor,fgColor=bCellColor)
+
+    cell=ws['C'+str(currentRow)]
+    cCellColor='ffe4e1'
+    cell.alignment=Alignment(horizontal=cellHorizontal)
+    cell.fill=PatternFill(fill_type='lightHorizontal',bgColor=cCellColor,fgColor=cCellColor)
+
+    cell=ws['D'+str(currentRow)]
+    cell.alignment=Alignment(horizontal=cellHorizontal)
+    dCellColor='ffc0cb'
+    cell.fill=PatternFill(fill_type='lightHorizontal',bgColor=dCellColor,fgColor=dCellColor)
+
     return ws
 
 
-def initExcel(path):
+def initExcel():
     wb = Workbook()
-    fileName = path
-    # 开始写入 excel
-    return wb, fileName
+    return wb
 
+# 设置每个单元格的默认属性
+def setCellProperty(worksheet):
+    for i in range(1, worksheet.max_row+1):
+        # worksheet.row_dimensions[i].height=50
+        for col in range(ord('A'),ord('D')):
+            worksheet[chr(col)+str(i)].font=Font(size=16)
+            worksheet[chr(col)+str(i)].alignment=Alignment(wrap_text=True)
+            borderStype='thick'
+            borderColor='556b2f'
+            worksheet[chr(col)+str(i)].border=Border(left=Side(border_style=borderStype,color=borderColor),
+            right=Side(border_style=borderStype,color=borderColor),
+            top=Side(border_style=borderStype,color=borderColor),
+            bottom=Side(border_style=borderStype,color=borderColor))
 
-help_zh_path = '/Users/hehongqing/WorkSpace/Android/static_help/resources/xml/SupplyHelpFiles.xml'
-help_en_path = '/Users/hehongqing/WorkSpace/Android/static_help/resources/xml/SupplyHelpENFiles.xml'
-test_path = r'/Users/hehongqing/Downloads/test_help.xml'
-su_string_file_path = r'/Users/hehongqing/Downloads/help_string_2.xlsx'
-sheet_title = 'help'
+    worksheet.column_dimensions['A'].width=60
+    worksheet.column_dimensions['B'].width=90
+    worksheet.column_dimensions['C'].width=90
+    worksheet.column_dimensions['D'].width=90
 
 def xmlConversionExcel():
-    wb, fileName = initExcel(su_string_file_path)
+    wb = initExcel()
     global ws
     ws = getSheetWs(wb,sheet_title)
     # readFile(test_path, FILE_TYPE_ZH)
@@ -290,6 +355,11 @@ def xmlConversionExcel():
     readFile(help_zh_path,FILE_TYPE_ZH)
 
     readFile(help_en_path,FILE_TYPE_EN)
-    wb.save(fileName)
 
-xmlConversionExcel()
+    setCellProperty(ws)
+
+    wb.save(su_string_file_path)
+
+if __name__ == "__main__":
+    xmlConversionExcel()
+

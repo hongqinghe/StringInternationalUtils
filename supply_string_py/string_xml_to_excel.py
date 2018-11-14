@@ -18,6 +18,7 @@ import xlwt
 
 su_string_file_path=r'/Users/hehongqing/Downloads/supply_string_2.xlsx'
 
+# 获取每个sheet
 def getSheetWs(wb,sheet_title):
     if SC._supply_base_sheet_head_btn==sheet_title:
         ws = wb.worksheets[0]
@@ -83,15 +84,17 @@ def xmlParse(zhPath, enPath,ws):
             enEmptyColor='dda0dd'
             cell.fill=PatternFill(fill_type='lightGray',bgColor=enEmptyColor,fgColor=enEmptyColor)
 
-            cell=ws['D'+str(currentRow+1)]
-            enEmptyColor='ff69b4'
-            cell.fill=PatternFill(fill_type='lightGray',bgColor=enEmptyColor,fgColor=enEmptyColor)
+            # cell=ws['D'+str(currentRow+1)]
+            # enEmptyColor='ff69b4'
+            # cell.fill=PatternFill(fill_type='lightGray',bgColor=enEmptyColor,fgColor=enEmptyColor)
 
+# 设置每个单元格的默认属性
 def setCellProperty(worksheet):
     for i in range(1, worksheet.max_row+1):
-        worksheet.row_dimensions[i].height=40
+        worksheet.row_dimensions[i].height=30
         for col in range(ord('A'),ord('D')):
             worksheet[chr(col)+str(i)].font=Font(size=16)
+            worksheet[chr(col)+str(i)].alignment=Alignment(wrap_text=True)
             borderStype='thick'
             borderColor='556b2f'
             worksheet[chr(col)+str(i)].border=Border(left=Side(border_style=borderStype,color=borderColor),
@@ -99,11 +102,12 @@ def setCellProperty(worksheet):
             top=Side(border_style=borderStype,color=borderColor),
             bottom=Side(border_style=borderStype,color=borderColor))
 
-    worksheet.column_dimensions['A'].width=60
-    worksheet.column_dimensions['B'].width=100
-    worksheet.column_dimensions['C'].width=120
-    worksheet.column_dimensions['D'].width=120
+    worksheet.column_dimensions['A'].width=45
+    worksheet.column_dimensions['B'].width=90
+    worksheet.column_dimensions['C'].width=110
+    worksheet.column_dimensions['D'].width=110
 
+# 转义为excel
 def transformToExcel():
 
     # 初始化excel 的必要参数
