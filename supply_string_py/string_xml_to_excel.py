@@ -14,7 +14,7 @@ from openpyxl.styles import Color, Fill,Font,colors,Border,Side,Alignment
 from openpyxl.cell import Cell
 
 import string_xml_constants as SC
-import xlwt
+# import xlwt
 
 su_string_file_path=r'/Users/hehongqing/Downloads/supply_string_2.xlsx'
 
