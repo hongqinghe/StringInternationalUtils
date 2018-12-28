@@ -1,4 +1,4 @@
-# 业务中对字符串的操作（增删改查），用于业务string的迭代
+# 业务中对字符串的操作（增删改查），用于业务string的迭代,同时会生成繁体文件
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -10,20 +10,25 @@ from xml.etree.ElementTree import Element, SubElement, ElementTree
 import string_xml_constants as SC
 import string_tw_zh_convert as ZW 
 
-su_string_file_path = r'/Users/hehongqing/Downloads/new_string_add.xml'
-attribName = 'name'
-attribLocation = 'location'
-attribStringType = 'stringType'
-attribOperateType = 'operateType'
+su_string_file_path = r'/Users/hehongqing/WorkSpace/utilsMaven/StringFileHelp/new_string_add.xml'
 
+# xml文件中的节点名称
+attribName = 'name'  # --ID
+attribLocation = 'location' # -->location
+attribStringType = 'stringType'  # --> btns  pages msgs
+attribOperateType = 'operateType'  # -->操作类型
+
+# 操作类型
 operateTypeAdd = 'A'
 operateTypeUpdate = 'U'
 operateTypeDelete = 'D'
 
+# 字符串位置 android（ supplyBase baseModule  buy）ios（base  buy）
 locationSupplyBase = '0'
 locationBaseModule = '1'
 lcoationBuy = '2'
 
+# 字符串类型  btns  pages msgs
 stringTypeBtns='A'
 stringTypePages='B'
 stringTypeMsgs='C'
@@ -64,11 +69,14 @@ def deleteString(path,id,stringType):
         newPath = getFilePath(type,path, stringType)
         xmlTree = ET.parse(newPath)
         xmlRoot=xmlTree.getroot()
+        isRemove=False
         for xmlElem in xmlTree.iter(tag='string'):
             xmlId=xmlElem.attrib['name']
             if id==xmlId:
                 xmlRoot.remove(xmlElem)
-        xmlTree.write(newPath, encoding='utf-8', xml_declaration=True)
+                isRemove=True
+        if isRemove:
+            xmlTree.write(newPath, encoding='UTF-8', xml_declaration=True)
 
 # 判断是那种操作类型 增加 删除  更新
 def dealPathString(path, id, stringType, operateType, text):
@@ -79,7 +87,7 @@ def dealPathString(path, id, stringType, operateType, text):
     elif operateType == operateTypeUpdate:
             # 打开文件删除指定的ID，并且key+1添加新字符
         deleteString(path, id, stringType)
-        pattern = r'(?P<VERSION>\d)'
+        pattern = r'_v(?P<VERSION>\d)'
         # gyl_msg_shop_v1
         match=re.search(pattern,id)
         versionCode = match.group('VERSION')
@@ -124,10 +132,10 @@ def xmlParse(path):
         stringValue = xmlElem.text
         dealWithString(stringId, stringLocation, stringType,
                        stringOperateType, stringValue)
+# 入口函数 解析xml文件进行添加
+def xmlConvertToAddString(path):
+    xmlParse(path)
 
-def main(path):
-    # 解析xml文件进行添加
-    xmlParse(su_string_file_path)
-
+# self test
 if __name__ == "__main__":
-    main(su_string_file_path)
+    xmlConvertToAddString(su_string_file_path)
