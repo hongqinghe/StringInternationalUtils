@@ -12,7 +12,7 @@ import string_xml_to_excel as SE
 import string_xml_constants as SC
 from time import time
 
-excelPath = '/Users/hehongqing/Downloads/supply_string_thai_new.xlsx'
+excelPath = '/Users/hehongqing/Downloads/supply_string_3.xlsx'
 # excelPath = '/Users/hehongqing/Downloads/supply_base_btn_thai.xlsx'
 
 
