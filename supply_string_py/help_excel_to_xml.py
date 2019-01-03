@@ -96,19 +96,19 @@ def  excelToXml(table,type,resultFilePath):
                 print(nodeValue)
 
                 if _node_first==True:
-                    file.write('\n'+'<b>'+nodeValue+'</b>')
+                    file.write('\n'+'<b>'+str(nodeValue)+'</b>')
                     _node_first=False
                 else:
                     _node_first=False
                     file.write('\n')
-                    file.write('\n'+'<b>'+nodeValue+'</b>')
+                    file.write('\n'+'<b>'+str(nodeValue)+'</b>')
                 break
             elif not childNodeMatch==None:
                 print('child_node       : ')
                 print(childNodeMatch)
                 nodeValue=table.row(i)[j+type].value
                 print(nodeValue)
-                file.write('\n'+'    ▪︎︎'+nodeValue)
+                file.write('\n'+'    ▪︎︎'+str(nodeValue))
                 break
             elif not specialNodeMatch==None:
                 nodeValue=table.row(i)[j+type].value
@@ -117,9 +117,9 @@ def  excelToXml(table,type,resultFilePath):
                 specialNodeMatchB=re.search(r'(?P<SPECIAL_NODE_NAME_A>.*)_SP_\d\Z',tableCellKey)
                 
                 if not specialNodeMatchA==None:
-                    file.write('\n'+'    '+nodeValue)
+                    file.write('\n'+'    '+str(nodeValue))
                 else:
-                    file.write('\n\n'+nodeValue+'\n')
+                    file.write('\n\n'+str(nodeValue)+'\n')
                 # spKey=specialNodeMatch.group('SPECIAL_NODE_NAME')
                 # print('special'+spKey)
                 # print(nodeValue)
@@ -129,25 +129,27 @@ def  excelToXml(table,type,resultFilePath):
                 print('special'+spKey)
                 nodeValue=table.row(i)[j+type].value
                 print(nodeValue)
-                file.write('\n'+'        ▫︎'+nodeValue)
+                file.write('\n'+'        ▫︎'+str(nodeValue))
                 break
             elif not childChildChildNodeMatch==None:
                 spKey=childChildChildNodeMatch.group('CHILD_CHILD_CHILD_NODE_NAME')
                 print('special'+spKey)
                 nodeValue=table.row(i)[j+type].value
                 print(nodeValue)
-                file.write('\n'+'            ৹'+nodeValue)
+                file.write('\n'+'            ৹'+str(nodeValue))
                 break
     file.write('\n'+'    ]]>')
     file.write('\n'+'</'+xml_title+'>')
     file.write('\n'+fileInitContent3)
     file.close
 
-path='/Users/hehongqing/Downloads/help_string.xlsx'
+# path='/Users/hehongqing/Downloads/help_string.xlsx'
+path = '/Users/hehongqing/Downloads/supply_help_string_thai2.xlsx'
 xmlPath='/Users/hehongqing/Downloads/help_string.xml'
 en_xml_path='/Users/hehongqing/Downloads/en_help_string.xml'
+thai_xml_path = '/Users/hehongqing/Downloads/thai_help_string.xml'
 
-help_zh_path = '/Users/hehongqing/WorkSpace/Android/static_help/resources/xml/SupplyHelpFiles.xml'
+help_zh_path = '/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpFiles.xml'
 
 # 生成的文件和本地xml文件进行比较
 def compareXmlWithLocal(xmlPath,type):
@@ -171,7 +173,7 @@ def dealLine(file,line,type):
     
     while 1:
         sourceLine = sourceFile.readline()
-        if not line:
+        if not sourceLine:
             sourceFile.close
             break
         else:
@@ -180,7 +182,7 @@ def dealLine(file,line,type):
                 print(file.tell())
                 print(sourceLine)
                 print(file.seek(0,1))
-                file.write
+                # file.write
 def linecount_1(path):
     return len(open(path).readlines())#最直接的方法
 def  writePosition():           
@@ -201,12 +203,14 @@ def  writePosition():
     
 def excleConversionXml():
     table=getExceltable(path)
-    # 生成 zh_xml 文件
+    # # 生成 zh_xml 文件
     # excelToXml(table,1,xmlPath)
-    # # 生成 en_xml 文件
-    # excelToXml(table,2,en_xml_path)
+    # # # 生成 en_xml 文件
+    excelToXml(table,2,en_xml_path)
 
-    compareXmlWithLocal(xmlPath,1)
+    excelToXml(table,3,thai_xml_path)
+
+    # compareXmlWithLocal(thai_xml_path, 1)
 
 if __name__ == "__main__":
     excleConversionXml()

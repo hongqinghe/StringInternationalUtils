@@ -16,9 +16,12 @@ from time import time
 
 test_path = r'/Users/hehongqing/Downloads/test_help.xml'
 test_path_key = r'/Users/hehongqing/Downloads/test_help_key.xml'
+# test_path_key = r'/Users/hehongqing/Downloads/thai_help_string.xml'
 test_path_source = r'/Users/hehongqing/Downloads/test_help_key_source.xml'
 resultPath = r'/Users/hehongqing/Downloads/result_help.xml'
 
+
+thai_xml_path = '/Users/hehongqing/Downloads/thai_help_string.xml'
 resultXML=[]
 
 def dealLine(line,xmlList):
