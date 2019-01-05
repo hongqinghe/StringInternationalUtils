@@ -37,7 +37,7 @@ def formatXml():
                 twFile.close
 
 if __name__ == "__main__":
-    # add(su_string_file_path)
-    # check()
-    formatXml()
+    add(su_string_file_path)
+    check()
+    # formatXml()
 

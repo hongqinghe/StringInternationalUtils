@@ -30,7 +30,61 @@ _sheet_title_thai_location='D'
 # 容错处理时标注的位置
 _sheet_title_error_location='E'
 
+# 各个语言在excel文件中对应的 列
+_EXCEL_MAPPING_ZH_LOCATON=1
+_EXCEL_MAPPING_EN_LOCATON=2
+_EXCEL_MAPPING_THAI_LOCATON=3
 
+# 文件类型
+_FILE_TYPE_ZH_SOURCE = 'zh_source'
 _FILE_TYPE_ZH = 'zh'
 _FILE_TYPE_EN = 'en'
 _FILE_TYPE_THAI = 'thai'
+
+
+#  翻译文件 excel
+_TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/supply_help_string_thai.xlsx'
+# _TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_thai3.xlsx'
+_TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_to_translate.xlsx'
+
+# 带翻译文件
+_TO_TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_to_translate.xlsx'
+
+# 中文 最新文件位置
+_SOURCE_ZH_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpFiles.xml'
+# 中文最新 对应生成 key-value 的文件
+_SOURCE_ZH_KEY_PATH = r'/Users/hehongqing/Downloads/help/test_help_key_source.xml'
+
+
+# 中文文件位置
+# 源文件
+_SOURCE_ZH_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpFiles.xml'
+# 由  excel 文件生成的 zh
+_SOURCE_EXCEL_ZH_PATH = r'/Users/hehongqing/Downloads/help/zh_help_excel.xml'
+# 由  excel 文件生成的 zh 对应生成 key-value 的文件
+_TEMP_ZH_KEY_PATH = r'/Users/hehongqing/Downloads/help/zh_help_key.xml'
+# 比较后生成的最后文件
+_TEMP_ZH_RESULT_PATH = r'/Users/hehongqing/Downloads/help/result_zh_help.xml'
+
+# 英文文件位置
+# 源文件
+_SOURCE_EN_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpENFiles.xml'
+# 由  excel 文件生成的 en
+_SOURCE_EXCEL_EN_PATH = r'/Users/hehongqing/Downloads/help/en_help_excel.xml'
+# 由  excel 文件生成的 en 对应生成 key-value 的文件
+_TEMP_EN_KEY_PATH = r'/Users/hehongqing/Downloads/help/en_help_key.xml'
+# 比较后生成的最后文件
+_TEMP_EN_RESULT_PATH = r'/Users/hehongqing/Downloads/help/result_en_help.xml'
+
+
+# 泰文文件位置
+# 源文件
+_SOURCE_THAI_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpTHAIFiles.xml'
+# 由  excel 文件生成的 thai
+_SOURCE_EXCEL_THAI_PATH = r'/Users/hehongqing/Downloads/help/thai_help_excel.xml'
+# 由  excel 文件生成的 thai 对应生成 key-value 的文件
+_TEMP_THAI_KEY_PATH = r'/Users/hehongqing/Downloads/help/thai_help_key.xml'
+# 比较后生成的最后文件
+_TEMP_THAI_RESULT_PATH = r'/Users/hehongqing/Downloads/help/result_thai_help.xml'
+
+

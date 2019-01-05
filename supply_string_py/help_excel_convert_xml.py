@@ -6,6 +6,7 @@ import  xlrd
 import os
 import macpath
 import random
+import help_xml_constants as HC
 
 def getExceltable(excelPath):
     #打开excel文件
@@ -32,7 +33,7 @@ def  excelToXml(table,type,resultFilePath):
     fileInitContent1='<?xml version="1.0" encoding="utf-8"?>'
     fileInitContent2='<root>'
     fileInitContent3='</root>'
-    file=open(resultFilePath,'a')
+    file=open(resultFilePath,'w+')
     file.write(fileInitContent1)
     file.write('\n'+fileInitContent2)
     _first_init=True
@@ -114,10 +115,11 @@ def  excelToXml(table,type,resultFilePath):
                 nodeValue=table.row(i)[j+type].value
 
                 specialNodeMatchA=re.search(r'(?P<SPECIAL_NODE_NAME_A>.*)_SP_\d_A_\Z',tableCellKey)
-                specialNodeMatchB=re.search(r'(?P<SPECIAL_NODE_NAME_A>.*)_SP_\d\Z',tableCellKey)
+                # specialNodeMatchB=re.search(r'(?P<SPECIAL_NODE_NAME_A>.*)_SP_\d\Z',tableCellKey)
                 
                 if not specialNodeMatchA==None:
-                    file.write('\n'+'    '+str(nodeValue))
+                    # file.write('\n'+'    '+str(nodeValue))
+                    file.write('\n'+''+str(nodeValue))
                 else:
                     file.write('\n\n'+str(nodeValue)+'\n')
                 # spKey=specialNodeMatch.group('SPECIAL_NODE_NAME')
@@ -143,74 +145,64 @@ def  excelToXml(table,type,resultFilePath):
     file.write('\n'+fileInitContent3)
     file.close
 
-# path='/Users/hehongqing/Downloads/help_string.xlsx'
-path = '/Users/hehongqing/Downloads/supply_help_string_thai2.xlsx'
-xmlPath='/Users/hehongqing/Downloads/help_string.xml'
-en_xml_path='/Users/hehongqing/Downloads/en_help_string.xml'
-thai_xml_path = '/Users/hehongqing/Downloads/thai_help_string.xml'
-
-help_zh_path = '/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpFiles.xml'
-
 # 生成的文件和本地xml文件进行比较
 def compareXmlWithLocal(xmlPath,type):
-    file = open(xmlPath,'r+')
-    count=linecount_1(xmlPath)
-    print(count)
-    # 根据行读出文件
-    while 1:
-        line = file.readline()
-        if not line:
-            file.close
-            break
-        else:
-            # 读取到的每行
-            # print(line)
-            dealLine(file,line, type)
+    pass
+#     file = open(xmlPath,'r+')
+#     count=linecount_1(xmlPath)
+#     print(count)
+#     # 根据行读出文件
+#     while 1:
+#         line = file.readline()
+#         if not line:
+#             file.close
+#             break
+#         else:
+#             # 读取到的每行
+#             # print(line)
+#             dealLine(file,line, type)
 
 
-def dealLine(file,line,type):
-    sourceFile=open(help_zh_path)
+# def dealLine(file,line,type):
+#     sourceFile=open(help_zh_path)
     
-    while 1:
-        sourceLine = sourceFile.readline()
-        if not sourceLine:
-            sourceFile.close
-            break
-        else:
-            # 读取到的每行
-            if not  sourceLine==line:
-                print(file.tell())
-                print(sourceLine)
-                print(file.seek(0,1))
-                # file.write
-def linecount_1(path):
-    return len(open(path).readlines())#最直接的方法
-def  writePosition():           
-    lines=[]
-    f=open("d:\\1script\\1.txt",'r')  #your path!
-    for line in f:
-        lines.append(line)
-    f.close()
-    print(lines)
-    lines.insert(3,"666\n")           #第四行插入666并回车
-    s=''.join(lines)
-    f=open("d:\\1script\\1.txt",'w+') #重新写入文件
-    f.write(s)
-    f.close()
-    del lines[:]                      #清空列表
-    print(lines)
+#     while 1:
+#         sourceLine = sourceFile.readline()
+#         if not sourceLine:
+#             sourceFile.close
+#             break
+#         else:
+#             # 读取到的每行
+#             if not  sourceLine==line:
+#                 print(file.tell())
+#                 print(sourceLine)
+#                 print(file.seek(0,1))
+#                 # file.write
+# def linecount_1(path):
+#     return len(open(path).readlines())#最直接的方法
+# def  writePosition():           
+#     lines=[]
+#     f=open("d:\\1script\\1.txt",'r')  #your path!
+#     for line in f:
+#         lines.append(line)
+#     f.close()
+#     print(lines)
+#     lines.insert(3,"666\n")           #第四行插入666并回车
+#     s=''.join(lines)
+#     f=open("d:\\1script\\1.txt",'w+') #重新写入文件
+#     f.write(s)
+#     f.close()
+#     del lines[:]                      #清空列表
+#     print(lines)
 
     
 def excleConversionXml():
-    table=getExceltable(path)
-    # # 生成 zh_xml 文件
-    # excelToXml(table,1,xmlPath)
-    # # # 生成 en_xml 文件
-    excelToXml(table,2,en_xml_path)
 
-    excelToXml(table,3,thai_xml_path)
+    table=getExceltable(HC._TRANSLATE_EXCEL_PATH)
 
-    # compareXmlWithLocal(thai_xml_path, 1)
+    excelToXml(table,HC._EXCEL_MAPPING_ZH_LOCATON, HC._SOURCE_EXCEL_ZH_PATH)
+    excelToXml(table, HC._EXCEL_MAPPING_EN_LOCATON,HC._SOURCE_EXCEL_EN_PATH)
+    excelToXml(table, HC._EXCEL_MAPPING_THAI_LOCATON, HC._SOURCE_EXCEL_THAI_PATH)
 
 if __name__ == "__main__":
     excleConversionXml()
