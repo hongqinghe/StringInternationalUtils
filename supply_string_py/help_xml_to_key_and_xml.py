@@ -92,6 +92,15 @@ def xmlParseToKeyValueXml():
     readFile(HC._SOURCE_EXCEL_EN_PATH, HC._FILE_TYPE_EN)
     readFile(HC._SOURCE_EXCEL_THAI_PATH, HC. _FILE_TYPE_THAI)
 
+
+
+
+def  xmlParseToKeySourceValueXml():
+
+    readFile(HC._SOURCE_ZH_PATH, HC._FILE_TYPE_ZH_SOURCE)
+    readFile(HC._SOURCE_ZH_PATH, HC. _FILE_TYPE_ZH)
+    readFile(HC._SOURCE_EN_PATH, HC._FILE_TYPE_EN)
+    readFile(HC._SOURCE_THAI_PATH, HC. _FILE_TYPE_THAI)
 if __name__ == "__main__":
     xmlParseToKeyValueXml()
 

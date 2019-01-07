@@ -60,31 +60,39 @@ def initExcel(path):
  
 # ws= getOnlyWs(TYPE_SUPPLY_BASE_BTNS)
 def xmlParse(zhPath, enPath,thaiPath,ws):
-    zh_tree = ET.parse(zhPath)
-    en_tree = ET.parse(enPath)
-    thai_tree = ET.parse(thaiPath)
+    thai_tree = None
+    zh_tree = None
+    en_tree = None
+    try:
+        zh_tree = ET.parse(zhPath)
+        en_tree = ET.parse(enPath)
+        thai_tree = ET.parse(thaiPath)
+    except FileNotFoundError as fileError:
+        print(fileError)
     # 中文 xml  解析 生成对应的 key 和 value 
     for zh_elem in zh_tree.iter(tag='string'):
         zh_key = zh_elem.attrib['name']
-        print('zh_key:      ' + str(zh_key))
+        # print('zh_key:      ' + str(zh_key))
         zh_value = zh_elem.text
-        print('zh_value:    ' + str(zh_value))
+        # print('zh_value:    ' + str(zh_value))
 
         # 获取 key 对应的 en_value
         en_value=''
-        for en_elem in en_tree.iter(tag='string'):
-            en_key = en_elem.attrib['name']
-            if en_key == zh_key:
-                en_value = en_elem.text
-                break
+        if not en_tree == None:
+            for en_elem in en_tree.iter(tag='string'):
+                en_key = en_elem.attrib['name']
+                if en_key == zh_key:
+                    en_value = en_elem.text
+                    break
 
         # 获取 key 对应的 thai_value
         thai_value = ''
-        for thai_elem in thai_tree.iter(tag='string'):
-            thai_key = thai_elem.attrib['name']
-            if thai_key == zh_key:
-                thai_value = thai_elem.text
-                break
+        if not thai_tree==None:
+            for thai_elem in thai_tree.iter(tag='string'):
+                thai_key = thai_elem.attrib['name']
+                if thai_key == zh_key:
+                    thai_value = thai_elem.text
+                    break
         #  添加字符串到excel中
         ws.append([zh_key, zh_value, en_value, thai_value])
         # 如果en_value 字符为空，则认为该项没有翻译，进行颜色填充

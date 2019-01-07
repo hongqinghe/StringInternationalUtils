@@ -11,7 +11,7 @@ import string_xml_constants as SC
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element, SubElement, ElementTree
 import string_tw_zh_convert as ZW
-su_string_file_path = r'/Users/hehongqing/WorkSpace/utilsMaven/StringFileHelp/new_string_add.xml'
+
 
 def add(path):
     ADD.xmlConvertToAddString(path)
@@ -36,8 +36,8 @@ def formatXml():
                 twFile.writelines(converList)
                 twFile.close
 
-if __name__ == "__main__":
-    add(su_string_file_path)
+if __name__ == "__main__": 
+    add(SC._su_string_file_path)
     check()
     # formatXml()
 

@@ -10,7 +10,6 @@ from xml.etree.ElementTree import Element, SubElement, ElementTree
 import string_xml_constants as SC
 import string_tw_zh_convert as ZW 
 
-su_string_file_path = r'/Users/hehongqing/WorkSpace/utilsMaven/StringFileHelp/new_string_add.xml'
 
 # xml文件中的节点名称
 attribName = 'name'  # --ID
@@ -18,8 +17,8 @@ attribLocation = 'location' # -->location
 attribStringType = 'stringType'  # --> btns  pages msgs
 attribOperateType = 'operateType'  # -->操作类型
 
-# 操作类型
-operateTypeAdd = 'A'
+# 操作类型 添加 更新 删除
+operateTypeAdd = 'N'
 operateTypeUpdate = 'U'
 operateTypeDelete = 'D'
 
@@ -91,7 +90,10 @@ def dealPathString(path, id, stringType, operateType, text):
         # gyl_msg_shop_v1
         match=re.search(pattern,id)
         versionCode = match.group('VERSION')
-        newVersion= int(versionCode)+1
+        # 目前不使用版本号进行控制管理 采用key和中文value值进行判断
+        # newVersion= int(versionCode)+1
+        newVersion= int(versionCode)
+        
         # 版本加一之后进行添加新的字符串
         id=id.replace(versionCode,str(newVersion))
         addString(path, id, stringType, text)
@@ -117,7 +119,7 @@ def dealWithString(id, location, stringType, operateType, text):
 
 # <root >
 # 0 基础模块（SupplyBase） 1 公用模块(BaseModule) 2(采购平台)  supplyBase 和 BaseModule 的划分需要Android这边来负责
-# <string name = "gyl_msg_menu_unit_default_v1" location = "0" stringType = 'A' operateType = "A" > 份 | 例 | 瓶 | 个 | 杯 </string >
+# <string name = "gyl_msg_menu_unit_default_v1" location = "0" stringType = 'A' operateType = "N" > 份 | 例 | 瓶 | 个 | 杯 </string >
 # <string name = "gyl_msg_menu_unit_default_v1" location = "1" stringType = 'B' operateType = "U" > 更新键 </string >
 # <string name = "gyl_msg_menu_unit_default_v1" location = "2" stringType = 'C' operateType = "D" > 删除键 </string >
 # </root >
@@ -126,16 +128,46 @@ def xmlParse(path):
     xmlTree = ET.parse(path)
     for xmlElem in xmlTree.iter(tag='string'):
         stringId = xmlElem.attrib[attribName]
-        stringLocation = xmlElem.attrib[attribLocation]
-        stringType = xmlElem.attrib[attribStringType]
-        stringOperateType = xmlElem.attrib[attribOperateType]
+        try:
+            stringLocation = xmlElem.attrib[attribLocation]
+        except KeyError:
+            print('文本未显示location,设置默认值为    1-->baseModule')
+            stringLocation='1'
+        
+        try:
+            stringType = xmlElem.attrib[attribStringType]
+        except KeyError:
+            print('文本未显示StringType,设置默认值为    C-->msg')
+            stringType = 'C'
+
+        try:
+            stringOperateType = xmlElem.attrib[attribOperateType]
+        except KeyError:
+            print('文本未显示OperateType,设置默认值为    N-->add')
+            stringOperateType = 'N'
         stringValue = xmlElem.text
         dealWithString(stringId, stringLocation, stringType,
                        stringOperateType, stringValue)
+
+def   changeVersion(path):
+        file = open(path, 'r')
+        while 1:
+            line = file.readline()
+            if not line:
+                file.close
+                break
+            # line中是否包含某个字符串
+            if line.find('VERSION_CODE') != -1:
+                splitList = str.split(line,'=')
+                line = line.replace(splitList[1], ' 068')
+                print(line)
+                # for value in splitList:  # 循环输出列表值
+                #     print(line)
 # 入口函数 解析xml文件进行添加
 def xmlConvertToAddString(path):
     xmlParse(path)
+    # changeVersion(SC.baseUri+'/BaseString/gradle.properties')
 
 # self test
 if __name__ == "__main__":
-    xmlConvertToAddString(su_string_file_path)
+    xmlConvertToAddString(SC._su_string_file_path)

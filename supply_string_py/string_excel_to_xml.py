@@ -45,18 +45,28 @@ def keyHomologousElement(searchTree, key):
         if xmlKey == key:
             return elem
 
+# 通过  excel 解析出的key和value，查找对应源文件中的element对象
+def valueHomologousElement(searchTree,key, value):
+    for elem in searchTree.iter(tag='string'):
+        # print(elem.attrib,elem.text)
+        xmlKey = (elem.attrib)['name']
+        xmlValue = elem.text
+        if xmlKey == key and xmlValue ==value:
+            return elem
 
 def getXMLTree(filePath):
     return ET.parse(filePath)
 
 
-def toRestultEnXML(selfTable, tableNrows, tableNcols, searchTree, resultXMLPath,location):
+def toRestultXML(selfTable, tableNrows, tableNcols, searchTree, resultXMLPath,location):
     restultRootEN = Element('resources')
     restultTreeEN = ElementTree(restultRootEN)
     for i in range(1, tableNrows):
         tableCellKey = selfTable.row(i)[0].value
-        # 校验第一次 只有源文件中的key才进行输出
-        resultElem = keyHomologousElement(searchTree, tableCellKey)
+        # 校验第一次 只有源文件中的key、value 和excel 中的 key、value 相等的时候才进行输出
+        resultElem = valueHomologousElement(
+            searchTree, tableCellKey, selfTable.row(i)[1].value)
+
         # print(tableCellKey)
         if not resultElem == None:
             excelValue = selfTable.row(i)[location].value
@@ -67,8 +77,13 @@ def toRestultEnXML(selfTable, tableNrows, tableNcols, searchTree, resultXMLPath,
                 resultElem.text = excelValue
                 # print('excelValue    '+str( excelValue))
                 restultRootEN.append(resultElem)
-        restultTreeEN.write(resultXMLPath, encoding='utf-8',
-                            xml_declaration=True)
+        try:
+            restultTreeEN.write(resultXMLPath, encoding='utf-8',
+                                        xml_declaration=True)
+        except FileNotFoundError as fileError:
+            print(fileError)
+            
+
 '''
     解析table
     selfTable: 对应sheet
@@ -84,11 +99,11 @@ def toTraverseTable(selfTable, resultXMLPath, searchXMLFilePath, type):
 
     if type == en_type:
         loaction=2
-        toRestultEnXML(selfTable, tableNrows, tableNcols,
+        toRestultXML(selfTable, tableNrows, tableNcols,
                    searchTree, resultXMLPath, loaction)
     elif type==thai_type:
         loaction=3
-        toRestultEnXML(selfTable, tableNrows, tableNcols,
+        toRestultXML(selfTable, tableNrows, tableNcols,
                        searchTree, resultXMLPath, loaction)
 # 初始化excel
 def initExcel():

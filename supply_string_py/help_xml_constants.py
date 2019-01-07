@@ -79,12 +79,17 @@ _TEMP_EN_RESULT_PATH = r'/Users/hehongqing/Downloads/help/result_en_help.xml'
 
 # 泰文文件位置
 # 源文件
-_SOURCE_THAI_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpTHAIFiles.xml'
+_SOURCE_THAI_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpTHFiles.xml'
 # 由  excel 文件生成的 thai
 _SOURCE_EXCEL_THAI_PATH = r'/Users/hehongqing/Downloads/help/thai_help_excel.xml'
 # 由  excel 文件生成的 thai 对应生成 key-value 的文件
 _TEMP_THAI_KEY_PATH = r'/Users/hehongqing/Downloads/help/thai_help_key.xml'
 # 比较后生成的最后文件
 _TEMP_THAI_RESULT_PATH = r'/Users/hehongqing/Downloads/help/result_thai_help.xml'
+
+
+# 繁体文件位置
+# 源文件
+_SOURCE_TW_PATH = r'/Users/hehongqing/workspace/utilsmaven/static_help/resources/xml/SupplyHelpTWFiles.xml'
 
 

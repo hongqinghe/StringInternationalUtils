@@ -98,3 +98,7 @@ _sourceSuffixPage='/pages.xml'
 _sourceSuffixMsg='/msgs.xml'
 
 _sourceSuffixList = [_sourceSuffixBtn, _sourceSuffixPage, _sourceSuffixMsg]
+
+# 用于操作string 的辅助文件
+_su_string_file_path = r'/Users/hehongqing/WorkSpace/utilsMaven/StringFileHelp/new_string_add.xml'
+_base_maven_test_version = r'/Users/hehongqing/WorkSpace/utilsMaven/StringFileHelp/base_maven_test'
