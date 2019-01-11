@@ -200,9 +200,9 @@ def excleConversionXml():
 
     table=getExceltable(HC._TRANSLATE_EXCEL_PATH)
 
-    excelToXml(table,HC._EXCEL_MAPPING_ZH_LOCATON, HC._SOURCE_EXCEL_ZH_PATH)
-    excelToXml(table, HC._EXCEL_MAPPING_EN_LOCATON,HC._SOURCE_EXCEL_EN_PATH)
-    excelToXml(table, HC._EXCEL_MAPPING_THAI_LOCATON, HC._SOURCE_EXCEL_THAI_PATH)
+    excelToXml(table, HC._EXCEL_MAPPING_ZH_LOCATION, HC._SOURCE_EXCEL_ZH_PATH)
+    excelToXml(table, HC._EXCEL_MAPPING_EN_LOCATION, HC._SOURCE_EXCEL_EN_PATH)
+    excelToXml(table, HC._EXCEL_MAPPING_THAI_LOCATION, HC._SOURCE_EXCEL_THAI_PATH)
 
 if __name__ == "__main__":
     excleConversionXml()

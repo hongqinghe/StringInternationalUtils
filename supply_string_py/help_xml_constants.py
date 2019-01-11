@@ -1,15 +1,15 @@
-_help_node_title_pattern_key = 'KEY'
-_help_node_title_pattern_version = 'VERSION_NAME'
-_help_node_title_pattern_title = 'TITLE'
+help_node_title_pattern_key = 'KEY'
+help_node_title_pattern_version = 'VERSION_NAME'
+help_node_title_pattern_title = 'TITLE'
 
-_help_node_b_pattern_value = 'B_VALUE'
+help_node_b_pattern_value = 'B_VALUE'
 
 _help_node_first_pattern_value = 'FIRST_VALUE'
 _help_node_second_pattern_value = 'SECOND_VALUE'
 _help_node_third_pattern_value = 'THIRD_VALUE'
 _help_node_foot_pattern_value = 'FOOT_VALUE'
 
-_help_node_title_pattern = r'<(?P<KEY>\w+)(.*)version=\"(?P<VERSION_NAME>\w[0-9])"(.*)name=\"(?P<TITLE>.*)\"'
+help_node_title_pattern = r'<(?P<KEY>\w+)(.*)version=\"(?P<VERSION_NAME>\w[0-9])"(.*)name=\"(?P<TITLE>.*)\"'
 
 _help_node_title_version_pattern = r'version(.*)name'
 
@@ -31,9 +31,9 @@ _sheet_title_thai_location = 'D'
 _sheet_title_error_location = 'E'
 
 # 各个语言在excel文件中对应的 列
-_EXCEL_MAPPING_ZH_LOCATON = 1
-_EXCEL_MAPPING_EN_LOCATON = 2
-_EXCEL_MAPPING_THAI_LOCATON = 3
+_EXCEL_MAPPING_ZH_LOCATION = 1
+_EXCEL_MAPPING_EN_LOCATION = 2
+_EXCEL_MAPPING_THAI_LOCATION = 3
 
 # 文件类型
 _FILE_TYPE_ZH_SOURCE = 'zh_source'
@@ -42,9 +42,9 @@ _FILE_TYPE_EN = 'en'
 _FILE_TYPE_THAI = 'thai'
 
 #  翻译文件 excel
-_TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/supply_help_string_thai.xlsx'
+# _TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/supply_help_string_thai.xlsx'
 # _TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_thai3.xlsx'
-# _TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_to_translate.xlsx'
+_TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_to_translate.xlsx'
 
 # 带翻译文件
 _TO_TRANSLATE_EXCEL_PATH = '/Users/hehongqing/Downloads/help/supply_help_string_to_translate.xlsx'

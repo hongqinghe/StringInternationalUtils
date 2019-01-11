@@ -85,20 +85,20 @@ def dealLine(line):
         if not match == None:
             _init_key = True
             # print(match)
-            nodeTitleMatch = re.search(HC._help_node_title_pattern, line)
-            # print(nodeTitleMatch)
-            # print('key          '+nodeTitleMatch.group(HC._help_node_title_pattern_key))
+            node_title_match = re.search(HC.help_node_title_pattern, line)
+            # print(node_title_match)
+            # print('key          '+node_title_match.group(HC._help_node_title_pattern_key))
 
-            _help_key = nodeTitleMatch.group(HC._help_node_title_pattern_key)
+            _help_key = node_title_match.group(HC.help_node_title_pattern_key)
 
-            nodeVersion = nodeTitleMatch.group(
-                HC._help_node_title_pattern_version)
-            # print('VersionName  '+nodeVersion)
+            node_version = node_title_match.group(
+                HC.help_node_title_pattern_version)
+            # print('VersionName  '+node_version)
 
-            _help_key_version = nodeVersion
+            _help_key_version = node_version
 
-            nodeTitleValue = nodeTitleMatch.group(
-                HC._help_node_title_pattern_title)
+            nodeTitleValue = node_title_match.group(
+                HC.help_node_title_pattern_title)
             # print('Title        '+nodeTitleValue)
             excel_key_title = _help_key+STRING_CONNECTOR+_help_key_version
 
@@ -112,7 +112,7 @@ def dealLine(line):
         # pattern <b>添加仓库</b>
         nodeMatch = re.search(HC._help_node_b_pattern, line)
         # first_node_value = nodeMatch.group(HC._help_node_b_pattern_value)
-        b_node_value = nodeMatch.group(HC._help_node_b_pattern_value)
+        b_node_value = nodeMatch.group(HC.help_node_b_pattern_value)
 
         if _key_first_node == None:
             _key_first_node = 'A'
