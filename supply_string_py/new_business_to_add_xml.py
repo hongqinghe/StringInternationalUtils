@@ -18,7 +18,7 @@ attribStringType = 'stringType'  # --> btns  pages msgs
 attribOperateType = 'operateType'  # -->操作类型
 
 # 操作类型 添加 更新 删除
-operateTypeAdd = 'N'
+operateTypeAdd = 'A'
 operateTypeUpdate = 'U'
 operateTypeDelete = 'D'
 
@@ -28,9 +28,9 @@ locationBaseModule = '1'
 lcoationBuy = '2'
 
 # 字符串类型  btns  pages msgs
-stringTypeBtns='A'
-stringTypePages='B'
-stringTypeMsgs='C'
+stringTypeBtns='B'
+stringTypePages='P'
+stringTypeMsgs='M'
 def getFilePath(sourceType,path,stringType):
     if stringType == stringTypeBtns:
         path = path+sourceType+SC._sourceSuffixBtn
@@ -116,12 +116,15 @@ def dealWithString(id, location, stringType, operateType, text):
         raise RuntimeError('location  error')
 
 # 根据传入的文件路径解析需要新添加的字符串
+# 字符变更（模块:基础模块(SupplyBase)–>【 0 】,公用模块(BaseModule)–> 【 1】,采购平台【 2 】 ,
+# 字符串分类：btn–>【B】page-->【P】msg–>【 M】 
+#  操作类型: 添加 -->【 A】  修改 -->【U】 删除 -->【D】）
 
 # <root >
 # 0 基础模块（SupplyBase） 1 公用模块(BaseModule) 2(采购平台)  supplyBase 和 BaseModule 的划分需要Android这边来负责
-# <string name = "gyl_msg_menu_unit_default_v1" location = "0" stringType = 'A' operateType = "N" > 份 | 例 | 瓶 | 个 | 杯 </string >
-# <string name = "gyl_msg_menu_unit_default_v1" location = "1" stringType = 'B' operateType = "U" > 更新键 </string >
-# <string name = "gyl_msg_menu_unit_default_v1" location = "2" stringType = 'C' operateType = "D" > 删除键 </string >
+# <string name = "gyl_msg_menu_unit_default_v1" location = "0" stringType = 'B' operateType = "A" > 份 | 例 | 瓶 | 个 | 杯 </string >
+# <string name = "gyl_msg_menu_unit_default_v1" location = "1" stringType = 'P' operateType = "U" > 更新键 </string >
+# <string name = "gyl_msg_menu_unit_default_v1" location = "2" stringType = 'M' operateType = "D" > 删除键 </string >
 # </root >
 
 def xmlParse(path):
@@ -144,7 +147,7 @@ def xmlParse(path):
             stringOperateType = xmlElem.attrib[attribOperateType]
         except KeyError:
             print('文本未显示OperateType,设置默认值为    N-->add')
-            stringOperateType = 'N'
+            stringOperateType = 'A'
         stringValue = xmlElem.text
         dealWithString(stringId, stringLocation, stringType,
                        stringOperateType, stringValue)
