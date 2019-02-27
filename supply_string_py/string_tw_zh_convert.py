@@ -48,13 +48,20 @@ def readFile(filePath):
 def fileConvertTraditional(filePath):
     return readFile(filePath)
 
+
+def helpToConvertTw():
+    convertList = fileConvertTraditional(HC._SOURCE_ZH_PATH)
+    twFile = open(HC._SOURCE_TW_PATH, 'w+')
+    twFile.writelines(convertList)
+    twFile.close
+
 if __name__ == "__main__":
     # simplified_sentence = 'adsad进行简体转化繁体操作sda'
     # print("进行简体转化繁体操作")
     # list=readFile(SC._base_zh_btns_path)
 
     # print(list)
-    convertList=fileConvertTraditional(HC._TEMP_ZH_RESULT_PATH)
+    convertList = fileConvertTraditional(HC._SOURCE_ZH_PATH)
     twFile = open(HC._SOURCE_TW_PATH, 'w+')
     twFile.writelines(convertList)
     twFile.close
