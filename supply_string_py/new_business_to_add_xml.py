@@ -115,6 +115,16 @@ def dealWithString(id, location, stringType, operateType, text):
     else:
         raise RuntimeError('location  error')
 
+#   string ID 进行拼装  gyl_msg_...._v1
+def stringIdAssembly(stringType, stringId):
+    if stringType == stringTypeBtns:
+        return  SC._sourcePrefixBtn+stringId+SC._sourceVerion
+    if stringType == stringTypePages:
+        return SC._sourcePrefixPage+stringId+SC._sourceVerion
+    if stringType == stringTypeMsgs:
+        return SC._sourcePrefixMsg+stringId+SC._sourceVerion
+
+    return ""
 # 根据传入的文件路径解析需要新添加的字符串
 # 字符变更（模块:基础模块(SupplyBase)–>【 0 】,公用模块(BaseModule)–> 【 1】,采购平台【 2 】 ,
 # 字符串分类：btn–>【B】page-->【P】msg–>【 M】 
@@ -149,6 +159,8 @@ def xmlParse(path):
             print('文本未显示OperateType,设置默认值为    A-->add')
             stringOperateType = 'A'
         stringValue = xmlElem.text
+        if stringOperateType == operateTypeAdd :
+            stringId=stringIdAssembly(stringType,stringId)
         dealWithString(stringId, stringLocation, stringType,
                        stringOperateType, stringValue)
 

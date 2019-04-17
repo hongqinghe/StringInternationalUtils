@@ -97,6 +97,13 @@ _sourceSuffixBtn='/btns.xml'
 _sourceSuffixPage='/pages.xml'
 _sourceSuffixMsg='/msgs.xml'
 
+
+
+_sourcePrefixBtn='gyl_btn_'
+_sourcePrefixPage='gyl_page_'
+_sourcePrefixMsg = 'gyl_msg_'
+
+_sourceVerion='_v1'
 _sourceSuffixList = [_sourceSuffixBtn, _sourceSuffixPage, _sourceSuffixMsg]
 
 # 用于操作string 的辅助文件
