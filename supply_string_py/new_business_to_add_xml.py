@@ -146,7 +146,7 @@ def xmlParse(path):
         try:
             stringOperateType = xmlElem.attrib[attribOperateType]
         except KeyError:
-            print('文本未显示OperateType,设置默认值为    N-->add')
+            print('文本未显示OperateType,设置默认值为    A-->add')
             stringOperateType = 'A'
         stringValue = xmlElem.text
         dealWithString(stringId, stringLocation, stringType,
