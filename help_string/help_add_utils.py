@@ -1,14 +1,7 @@
-import help_xml_constants as HC
+from help_string import help_xml_to_key_and_xml, help_check_to_result
 
-import help_xml_parse_utils as H_UTILS
+from normal_string import string_tw_zh_convert
 
-import help_excel_convert_xml
-
-import help_xml_to_key_and_xml
-
-import help_check_to_result
-
-import string_tw_zh_convert
 
 def toConvert():
     help_xml_to_key_and_xml.xmlParseToKeyValueXml()

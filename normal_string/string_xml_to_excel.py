@@ -2,18 +2,13 @@
 
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import re
-import os
-import string
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element, SubElement, ElementTree
 from openpyxl.workbook import Workbook
 # 颜色
 from openpyxl.styles import PatternFill
-from openpyxl.styles import Color, Fill, Font, colors, Border, Side, Alignment
-from openpyxl.cell import Cell
+from openpyxl.styles import Font, Border, Side, Alignment
 
-import string_xml_constants as SC
+from normal_string import string_xml_constants as SC
 
 # import xlwt
 

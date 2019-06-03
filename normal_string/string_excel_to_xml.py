@@ -2,14 +2,11 @@
 # -*- coding: utf-8 -*-
 #  将 string 对应的excel 转化为xml文件
 import os
-import re
 
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element, SubElement, ElementTree
+from xml.etree.ElementTree import Element, ElementTree
 import xlrd
-from openpyxl.workbook import Workbook
-import string_xml_to_excel as SE
-import string_xml_constants as SC
+from normal_string import string_xml_constants as SC
 from time import time
 
 excelPath = '/Users/hehongqing/Downloads/help/supply_string_result.xlsx'

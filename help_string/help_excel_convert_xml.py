@@ -1,12 +1,9 @@
 # # 帮助文档excel 转化为 xml
 import re
-import os
 
 import  xlrd
-import os
-import macpath
-import random
-import help_xml_constants as HC
+from help_string import help_xml_constants as HC
+
 
 def getExceltable(excelPath):
     #打开excel文件

@@ -1,14 +1,10 @@
 # 将 help xml 文件转为带键值key-value的形式
-import re
-import os
 from openpyxl.workbook import Workbook
 # 颜色
 from openpyxl.styles import  PatternFill
-from openpyxl.styles import Color, Fill,Font,colors,Border,Side,Alignment
-from openpyxl.cell import Cell
+from openpyxl.styles import Font, Border,Side,Alignment
 
-import help_xml_constants as HC
-import help_xml_parse_utils as H_UTILS
+from help_string import help_xml_constants as HC, help_xml_parse_utils as H_UTILS
 
 #  步骤一
 

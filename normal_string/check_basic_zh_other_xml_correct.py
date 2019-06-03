@@ -2,15 +2,10 @@
 
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import re
-import os
 
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element, SubElement, ElementTree
 
-import threading
-import time
-import string_xml_constants as SC
+from normal_string import string_xml_constants as SC
 
 
 def xmlParse(old_zh_path, old_en_path):
