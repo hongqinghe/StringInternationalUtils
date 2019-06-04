@@ -9,8 +9,8 @@ import xlrd
 from normal_string import string_xml_constants as SC
 from time import time
 
-excelPath = '/Users/hehongqing/Downloads/help/supply_string_result.xlsx'
-# excelPath = '/Users/hehongqing/Downloads/supply_base_btn_thai.xlsx'
+# excelPath = '/Users/hehongqing/Downloads/help/supply_string_result.xlsx'
+excelPath =r'/Users/hehongqing/Downloads/supply_string_3.xlsx'
 
 
 fileSuffixBtn = '/btns_temp.xml'

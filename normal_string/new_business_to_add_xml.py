@@ -6,7 +6,7 @@ import re
 
 import xml.etree.ElementTree as ET
 from normal_string import string_tw_zh_convert as ZW, string_xml_constants as SC
-
+import base_lib.LanuageConvertUtils as LANG
 # xml文件中的节点名称
 attribName = 'name'  # --ID
 attribLocation = 'location'  # -->location
@@ -53,10 +53,11 @@ def addString(path, id, stringType, text):
 
     # 添加完string之后同步进行繁体的转化
     twpath = getFilePath(SC._basicTypeTW, path, stringType)
-    converList = ZW.fileConvertTraditional(zhPath)
-    twFile = open(twpath, 'w+')
-    twFile.writelines(converList)
-    twFile.close
+    LANG.convert_zh_to_tw(zhPath,twpath)
+    # converList = ZW.fileConvertTraditional(zhPath)
+    # twFile = open(twpath, 'w+')
+    # twFile.writelines(converList)
+    # twFile.close
 
 
 # 删除指定id的string,
